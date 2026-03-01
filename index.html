@@ -342,8 +342,8 @@
                 const frame = document.getElementById('frame-' + tool);
                 if (!frame.src || frame.src === 'about:blank') {
                     frame.src = TOOL_URLS[tool];
-                    frame.style.display = 'block';
                 }
+                frame.style.display = 'block';
             }
             
             currentTool = tool;
