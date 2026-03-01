@@ -12,7 +12,6 @@
             --bg-dark: #0a0a0f;
             --bg-card: rgba(255,255,255,0.03);
             --border: rgba(255,255,255,0.06);
-            --accent: #ff6b6b;
             --accent-grad: linear-gradient(135deg, #ff6b6b 0%, #ffa502 100%);
             --main-accent: #00d2ff;
             --text: #e8e8e8;
@@ -31,7 +30,6 @@
                 radial-gradient(ellipse at 80% 100%, rgba(255,165,2,0.04) 0%, transparent 50%);
         }
         
-        /* Header */
         header {
             padding: 20px 30px;
             display: flex;
@@ -74,10 +72,9 @@
             color: var(--text);
         }
         
-        /* Main */
         main {
             padding: 30px;
-            max-width: 800px;
+            max-width: 600px;
             margin: 0 auto;
         }
         
@@ -97,147 +94,29 @@
             margin-bottom: 30px;
         }
         
-        /* Status Cards */
-        .status-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
+        .open-btn {
+            display: block;
+            background: var(--main-accent);
+            color: #000;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 500;
+            font-family: inherit;
+            letter-spacing: 2px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s;
             margin-bottom: 30px;
         }
         
-        .status-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
+        .open-btn:hover {
+            background: #00b8e6;
+            transform: translateY(-2px);
         }
         
-        .status-card .icon {
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-        
-        .status-card .label {
-            font-size: 0.75em;
-            color: var(--text-muted);
-            letter-spacing: 1px;
-            margin-bottom: 6px;
-        }
-        
-        .status-card .value {
-            font-size: 1.1em;
-            font-weight: 500;
-            color: var(--text);
-        }
-        
-        /* Agent Status */
-        .agent-section {
-            margin-top: 30px;
-        }
-        
-        .agent-section h3 {
-            font-size: 1em;
-            font-weight: 500;
-            color: var(--text);
-            margin-bottom: 16px;
-            letter-spacing: 1px;
-        }
-        
-        .agent-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        
-        .agent-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 18px 20px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            transition: all 0.3s;
-        }
-        
-        .agent-card:hover {
-            border-color: var(--main-accent);
-        }
-        
-        .agent-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, var(--main-accent), #0088aa);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4em;
-        }
-        
-        .agent-info {
-            flex: 1;
-        }
-        
-        .agent-name {
-            font-size: 0.95em;
-            font-weight: 500;
-            color: var(--text);
-            margin-bottom: 4px;
-        }
-        
-        .agent-status {
-            font-size: 0.75em;
-            color: var(--text-muted);
-        }
-        
-        .agent-status.online {
-            color: #3fb950;
-        }
-        
-        .agent-status.busy {
-            color: #f0a020;
-        }
-        
-        .agent-status.offline {
-            color: #6b6b7b;
-        }
-        
-        /* Actions */
-        .actions {
-            margin-top: 30px;
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        
-        .action-btn {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            color: var(--text-muted);
-            padding: 12px 24px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 0.85em;
-            font-family: inherit;
-            letter-spacing: 1px;
-            transition: all 0.3s;
-        }
-        
-        .action-btn:hover {
-            background: rgba(255,255,255,0.06);
-            color: var(--text);
-            border-color: var(--main-accent);
-        }
-        
-        .action-btn.active {
-            background: rgba(0, 210, 255, 0.1);
-            border-color: var(--main-accent);
-            color: var(--main-accent);
-        }
-        
-        /* Info Box */
         .info-box {
             margin-top: 30px;
             padding: 20px;
@@ -260,29 +139,6 @@
             font-weight: 300;
         }
         
-        .info-box ul {
-            list-style: none;
-            margin-top: 12px;
-            padding: 0;
-        }
-        
-        .info-box li {
-            font-size: 0.75em;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            padding-left: 14px;
-            position: relative;
-            font-weight: 300;
-        }
-        
-        .info-box li::before {
-            content: '·';
-            position: absolute;
-            left: 0;
-            color: var(--main-accent);
-        }
-        
-        /* Footer */
         .footer-home {
             text-align: center;
             margin-top: 40px;
@@ -301,13 +157,6 @@
         .footer-home a:hover {
             color: var(--main-accent);
         }
-        
-        /* Mobile */
-        @media (max-width: 600px) {
-            header { padding: 15px 20px; }
-            main { padding: 20px; }
-            .status-grid { grid-template-columns: 1fr 1fr; }
-        }
     </style>
 </head>
 <body>
@@ -320,122 +169,18 @@
         <h1 class="page-title">像素辦公室</h1>
         <p class="page-desc">AI 團隊工作狀態看板，即時查看協作狀態與進度。</p>
         
-        <div class="status-grid">
-            <div class="status-card">
-                <div class="icon">🦞</div>
-                <div class="label">主程序</div>
-                <div class="value" id="mainStatus">線上</div>
-            </div>
-            <div class="status-card">
-                <div class="icon">📊</div>
-                <div class="label">今日任務</div>
-                <div class="value" id="taskCount">0</div>
-            </div>
-            <div class="status-card">
-                <div class="icon">⏱️</div>
-                <div class="label">運行時間</div>
-                <div class="value" id="uptime">--</div>
-            </div>
-            <div class="status-card">
-                <div class="icon">💬</div>
-                <div class="label">昨日小記</div>
-                <div class="value" id="yesterdayMemo">暂无</div>
-            </div>
-        </div>
-        
-        <div class="agent-section">
-            <h3>團隊成員</h3>
-            <div class="agent-list">
-                <div class="agent-card">
-                    <div class="agent-avatar">🦞</div>
-                    <div class="agent-info">
-                        <div class="agent-name">Sola (主程序)</div>
-                        <div class="agent-status online" id="solaStatus">● 工作中</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="actions">
-            <button class="action-btn" onclick="setStatus('idle')">待命</button>
-            <button class="action-btn" onclick="setStatus('writing')">工作中</button>
-            <button class="action-btn" onclick="setStatus('researching')">研究中</button>
-            <button class="action-btn" onclick="setStatus('executing')">執行中</button>
-            <button class="action-btn" onclick="setStatus('syncing')">同步中</button>
-            <button class="action-btn" onclick="setStatus('error')">錯誤</button>
-        </div>
+        <a href="star-office.html" class="open-btn">
+            開啟像素辦公室 →
+        </a>
         
         <div class="info-box">
             <h4>關於像素辦公室</h4>
-            <p>即時可視化 AI 工作狀態的協作看板。你可以查看團隊成員的當前狀態、工作進度，以及昨日的任務摘要。</p>
-            <ul>
-                <li>支援多種狀態：待命、工作、研究、執行、同步、錯誤</li>
-                <li>顯示團隊成員線上狀態</li>
-                <li>查看昨日工作小記</li>
-                <li>需要後端服務支援運行</li>
-            </ul>
+            <p>即時可視化 AI 工作狀態的協作看板，支援多種狀態顯示、團隊成員在線情況、以及昨日工作小記。需要後端服務支援運行。</p>
         </div>
         
         <div class="footer-home">
             <a href="index.html">← 返回目錄</a>
         </div>
     </main>
-
-    <script>
-        // Status options
-        const statusLabels = {
-            idle: '待命中',
-            writing: '工作中',
-            researching: '研究中',
-            executing: '執行中',
-            syncing: '同步中',
-            error: '錯誤'
-        };
-        
-        const statusClasses = {
-            idle: 'offline',
-            writing: 'online',
-            researching: 'online',
-            executing: 'busy',
-            syncing: 'busy',
-            error: 'offline'
-        };
-        
-        // Set status function
-        function setStatus(status) {
-            const statusText = statusLabels[status] || status;
-            const statusClass = statusClasses[status] || 'offline';
-            
-            document.getElementById('mainStatus').textContent = statusText;
-            document.getElementById('solaStatus').textContent = '● ' + statusText;
-            document.getElementById('solaStatus').className = 'agent-status ' + statusClass;
-            
-            // Update button states
-            document.querySelectorAll('.action-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.textContent === statusText) {
-                    btn.classList.add('active');
-                }
-            });
-            
-            // Simulate incrementing task count
-            const currentCount = parseInt(document.getElementById('taskCount').textContent) || 0;
-            document.getElementById('taskCount').textContent = currentCount + 1;
-        }
-        
-        // Update uptime
-        let seconds = 0;
-        setInterval(() => {
-            seconds++;
-            const hours = Math.floor(seconds / 3600);
-            const mins = Math.floor((seconds % 3600) / 60);
-            const secs = seconds % 60;
-            document.getElementById('uptime').textContent = 
-                `${hours.toString().padStart(2,'0')}:${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
-        }, 1000);
-        
-        // Set initial status
-        setStatus('idle');
-    </script>
 </body>
 </html>
