@@ -233,30 +233,40 @@
         /* Footer Info */
         .info-section {
             margin-top: 25px;
-            padding: 18px;
+            padding: 22px;
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 14px;
         }
         
         .info-section p {
-            font-size: 0.75em;
+            font-size: 0.78em;
             color: var(--text-muted);
-            line-height: 1.7;
+            line-height: 1.8;
             font-weight: 300;
-            text-align: center;
+            text-align: left;
         }
         
         .info-section ul {
             list-style: none;
-            margin-top: 12px;
+            margin-top: 16px;
+            padding-left: 0;
         }
         
         .info-section li {
-            font-size: 0.7em;
+            font-size: 0.72em;
             color: var(--text-muted);
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             font-weight: 300;
+            padding-left: 16px;
+            position: relative;
+        }
+        
+        .info-section li::before {
+            content: '·';
+            position: absolute;
+            left: 0;
+            color: var(--main-accent);
         }
         
         .footer-home {
@@ -306,11 +316,11 @@
         </div>
         
         <div class="info-section">
-            <p>生活中的靈感與瑣事都值得被即時捕捉。支援廣東話錄音，資料僅存於本地瀏覽器。</p>
+            <p>每一個想法都值得被好好記錄。生活中的靈感、工作裡的瑣事、那些突然閃過的念頭——讓 Sola 幫你即時捕捉。</p>
             <ul>
-                <li>⚡ 5 秒極速錄音轉文字</li>
-                <li>📱 支援加入主畫面即用</li>
-                <li>🔒 隱私保護，資料不經伺服器</li>
+                <li>說完就記錄，5 秒自動完成</li>
+                <li>無需動手，張口就能存檔</li>
+                <li>只屬於你，資料留在手機裡</li>
             </ul>
         </div>
         
