@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sola 記事本 - Sola Studio</title>
+    <style>
+        :root {
+            --bg-dark: #0d1117;
+            --bg-card: #161b22;
+            --border: #30363d;
+            --accent: #58a6ff;
+            --accent-hover: #79c0ff;
+            --accent-orange: #ff6b6b;
+            --accent-yellow: #ffa502;
+            --text: #c9d1d9;
+            --text-muted: #8b949e;
+            --bg-gradient: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            --note-accent: #00d2ff;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header */
+        header {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-yellow));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+        
+        .back-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .back-btn:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateX(-3px);
+        }
+        
+        /* Main */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 30px 20px;
+            max-width: 500px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        /* Note App */
+        .note-app {
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            border-radius: 24px;
+            padding: 30px;
+            min-height: calc(100vh - 200px);
+        }
+        
+        .note-app header {
+            background: none;
+            border: none;
+            padding: 0;
+            margin-bottom: 30px;
+            position: static;
+        }
+        
+        .note-app header h1 {
+            font-weight: 200;
+            letter-spacing: 12px;
+            margin-bottom: 5px;
+            color: #fff;
+            text-align: center;
+        }
+        
+        .note-app header p {
+            font-size: 0.6em;
+            letter-spacing: 6px;
+            opacity: 0.5;
+            color: #fff;
+            text-align: center;
+        }
+        
+        .main-btn-area {
+            background: rgba(255,255,255,0.05);
+            padding: 50px 20px;
+            border-radius: 40px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        #recordBtn {
+            background: #fff;
+            color: #203a43;
+            border: none;
+            width: 140px;
+            height: 140px;
+            border-radius: 70px;
+            font-size: 1.2em;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.2s;
+        }
+        
+        #recordBtn:active { transform: scale(0.95); }
+        #recordBtn.recording { 
+            background: #ff4757; 
+            color: #fff; 
+            box-shadow: 0 0 40px rgba(255,71,87,0.5);
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        
+        #timer { 
+            margin-top: 25px; 
+            font-size: 2em; 
+            font-weight: 200; 
+            color: var(--note-accent);
+        }
+        
+        .ledger-label { 
+            text-align: left; 
+            font-size: 0.7em; 
+            letter-spacing: 3px; 
+            opacity: 0.6; 
+            margin: 20px 0 15px 10px; 
+            text-transform: uppercase; 
+            color: #fff;
+        }
+        
+        #noteLog { text-align: left; }
+        
+        .note {
+            background: rgba(255,255,255,0.95);
+            color: #2c3e50;
+            padding: 18px;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            border-left: 5px solid var(--note-accent);
+            animation: noteFadeIn 0.3s ease-out;
+        }
+        
+        @keyframes noteFadeIn { 
+            from { opacity: 0; transform: translateY(10px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+        
+        .note-time { 
+            display: block; 
+            font-size: 0.7em; 
+            font-weight: 800; 
+            color: #95a5a6; 
+            margin-bottom: 6px; 
+        }
+        
+        .note-text { 
+            font-size: 1em; 
+            line-height: 1.5; 
+            font-weight: 500; 
+        }
+        
+        #clearBtn {
+            margin-top: 30px;
+            background: rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 10px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.8em;
+            letter-spacing: 2px;
+            transition: all 0.2s;
+        }
+        
+        #clearBtn:hover {
+            background: rgba(255,71,87,0.2);
+            color: #ff6b6b;
+            border-color: rgba(255,71,87,0.3);
+        }
+        
+        .empty-state { 
+            opacity: 0.3; 
+            text-align: center; 
+            padding-top: 30px; 
+            color: #fff;
+            font-size: 0.9em;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            padding: 30px 20px;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .footer-section {
+            margin-bottom: 20px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1em;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+        
+        .footer-section p {
+            font-size: 0.85em;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+        
+        .footer-section ul {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+        
+        .footer-section ul li {
+            font-size: 0.85em;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        
+        .footer-privacy {
+            background: rgba(63, 185, 80, 0.1);
+            border: 1px solid rgba(63, 185, 80, 0.2);
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            color: #3fb950;
+        }
+        
+        .footer-home {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .footer-home a {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+        
+        /* Mobile */
+        @media (max-width: 600px) {
+            header { padding: 12px 16px; }
+            main { padding: 20px 16px; }
+            .note-app { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <div class="logo-icon">🦞</div>
+            <span>Sola</span>
+        </div>
+        <button class="back-btn" onclick="location.href='index.html'">
+            ← 返回首頁
+        </button>
+    </header>
+
+    <main>
+        <div class="note-app">
+            <header>
+                <h1>SOLA</h1>
+                <p>RAPID NOTEBOOK</p>
+            </header>
+            
+            <div class="main-btn-area">
+                <button id="recordBtn">START</button>
+                <div id="timer">READY</div>
+            </div>
+            
+            <div class="ledger-label">Recent Archives</div>
+            <div id="noteLog"></div>
+            <button id="clearBtn">訊息清除</button>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>關於 Sola 記事本</h3>
+                <p>我們相信生活中的靈感與瑣事都值得被即時捕捉。無論是待買清單、工作雜感，或是那一瞬間的突發奇想，Sola 為此而生。</p>
+            </div>
+            
+            <div class="footer-section">
+                <ul>
+                    <li><strong>極速記錄</strong>：5 秒內完成留言並轉換文字</li>
+                    <li><strong>即說即記</strong>：一鍵開啟錄音，無需手動按停</li>
+                    <li><strong>極簡管理</strong>：僅保留最近 50 條訊息</li>
+                    <li><strong>隨手開啟</strong>：支援將網頁加入主畫面</li>
+                </ul>
+            </div>
+
+            <div class="footer-privacy">
+                <strong>🔒 絕對隱私</strong>：所有資料僅儲存於您的本地瀏覽器，不經過服務器，不追蹤數據。
+            </div>
+            
+            <div class="footer-home">
+                <a href="index.html">← 返回 Sola Studio 首頁</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const noteBtn = document.getElementById('recordBtn');
+        const noteClearBtn = document.getElementById('clearBtn');
+        const noteTimer = document.getElementById('timer');
+        const noteLog = document.getElementById('noteLog');
+        
+        let notes = JSON.parse(localStorage.getItem('sola_rapid_data') || '[]');
+        let currentTranscript = "";
+        
+        function renderNotes() {
+            if(notes.length === 0) {
+                noteLog.innerHTML = '<div class="empty-state">LIST IS EMPTY</div>';
+                noteClearBtn.style.display = 'none';
+                return;
+            }
+            noteClearBtn.style.display = 'inline-block';
+            noteLog.innerHTML = notes.map(n => `
+                <div class="note">
+                    <span class="note-time">${n.time}</span>
+                    <div class="note-text">${n.text}</div>
+                </div>
+            `).join('');
+        }
+        renderNotes();
+
+        function saveNote(text) {
+            if(!text || text.trim() === "") return;
+            const now = new Date();
+            const timeStr = `${now.getFullYear()}/${now.getMonth()+1}/${now.getDate()} ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}:${now.getSeconds().toString().padStart(2,'0')}`;
+            
+            notes.unshift({ time: timeStr, text: text });
+            if(notes.length > 50) notes.pop();
+            localStorage.setItem('sola_rapid_data', JSON.stringify(notes));
+            renderNotes();
+            currentTranscript = "";
+        }
+
+        const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (Recognition) {
+            const recog = new Recognition();
+            recog.lang = 'zh-HK';
+            recog.interimResults = true;
+
+            let clock;
+
+            recog.onstart = () => {
+                noteBtn.classList.add('recording');
+                noteBtn.disabled = true;
+                noteBtn.innerText = 'REC';
+                currentTranscript = "";
+                
+                let seconds = 5.0;
+                noteTimer.innerText = seconds.toFixed(1) + "S";
+                
+                clock = setInterval(() => {
+                    seconds -= 0.1;
+                    noteTimer.innerText = Math.max(0, seconds).toFixed(1) + "S";
+                    if (seconds <= 0) {
+                        clearInterval(clock);
+                        recog.stop();
+                    }
+                }, 100);
+            };
+
+            recog.onresult = (e) => {
+                currentTranscript = e.results[0][0].transcript;
+            };
+
+            recog.onend = () => {
+                clearInterval(clock);
+                noteBtn.classList.remove('recording');
+                noteBtn.disabled = false;
+                noteBtn.innerText = 'START';
+                noteTimer.innerText = 'SAVED';
+                
+                saveNote(currentTranscript);
+                
+                setTimeout(() => { 
+                    if(noteTimer.innerText === 'SAVED') noteTimer.innerText = 'READY'; 
+                }, 2000);
+            };
+
+            recog.onerror = () => {
+                clearInterval(clock);
+                noteBtn.classList.remove('recording');
+                noteBtn.disabled = false;
+                noteBtn.innerText = 'START';
+                noteTimer.innerText = 'ERROR';
+            };
+
+            noteBtn.onclick = () => {
+                try { recog.start(); } catch(e) { recog.abort(); }
+            };
+
+            noteClearBtn.onclick = () => {
+                if(confirm('確定要清除所有記錄嗎？此操作無法還原。')) {
+                    notes = [];
+                    localStorage.setItem('sola_rapid_data', JSON.stringify(notes));
+                    renderNotes();
+                }
+            };
+        } else {
+            noteTimer.innerText = "NOT SUPPORTED"; };
+        }
+    </script>
+</body>
+</html "NOT SUPPORTED>
