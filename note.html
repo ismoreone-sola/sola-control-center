@@ -30,7 +30,7 @@
             display: flex;
             flex-direction: column;
             background-image: 
-                radial-gradient(ellipse at 80% 0%, rgba(0,210,255,0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 0%, rgba(0,210,255,0.05) 0%, transparent 50%),
                 radial-gradient(ellipse at 20% 100%, rgba(255,107,107,0.04) 0%, transparent 50%);
         }
         
@@ -47,7 +47,6 @@
             font-weight: 300;
             color: #fff;
             letter-spacing: 6px;
-            text-transform: uppercase;
         }
         
         .logo span {
@@ -70,9 +69,6 @@
             letter-spacing: 1px;
             transition: all 0.3s;
             text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
         
         .back-btn:hover {
@@ -86,76 +82,60 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
-            max-width: 480px;
+            padding: 20px 30px 40px;
+            max-width: 500px;
             margin: 0 auto;
             width: 100%;
         }
         
-        /* Note App */
-        .note-app {
+        /* Note App Area */
+        .note-area {
             background: var(--bg-gradient);
             background-attachment: fixed;
-            border-radius: 28px;
+            border-radius: 24px;
             padding: 40px 30px;
             width: 100%;
-            min-height: calc(100vh - 160px);
         }
         
-        .note-app header {
-            background: none;
-            border: none;
-            padding: 0;
-            margin-bottom: 30px;
-            position: static;
-        }
-        
-        .note-app header h1 {
-            font-weight: 200;
-            letter-spacing: 14px;
-            margin-bottom: 5px;
-            color: #fff;
+        .note-header {
             text-align: center;
-            font-size: 1.8em;
+            margin-bottom: 30px;
         }
         
-        .note-app header p {
-            font-size: 0.55em;
+        .note-header h1 {
+            font-weight: 200;
+            font-size: 1.6em;
+            letter-spacing: 14px;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+        
+        .note-header p {
+            font-size: 0.5em;
             letter-spacing: 8px;
             opacity: 0.5;
             color: #fff;
-            text-align: center;
         }
         
-        .main-btn-area {
-            background: rgba(255,255,255,0.05);
-            padding: 50px 20px;
-            border-radius: 50%;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.08);
-            margin-bottom: 30px;
-            text-align: center;
-            width: 200px;
-            height: 200px;
-            margin-left: auto;
-            margin-right: auto;
+        /* Record Button - Original Style */
+        .record-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            margin-bottom: 30px;
         }
         
         #recordBtn {
             background: #fff;
             color: #203a43;
             border: none;
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            font-size: 1em;
-            font-weight: 700;
+            width: 140px;
+            height: 140px;
+            border-radius: 70px;
+            font-size: 1.2em;
+            font-weight: 800;
             cursor: pointer;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             transition: all 0.2s;
             font-family: inherit;
             letter-spacing: 2px;
@@ -163,37 +143,34 @@
         
         #recordBtn:active { transform: scale(0.95); }
         
-        #recordBtn.recording { 
-            background: #ff4757; 
-            color: #fff; 
-            box-shadow: 0 0 50px rgba(255,71,87,0.5);
-            animation: pulse 1s infinite;
+        #recordBtn.recording {
+            background: #ff4757;
+            color: #fff;
+            box-shadow: 0 0 40px rgba(255,71,87,0.5);
         }
         
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-        }
-        
-        #timer { 
-            margin-top: 15px; 
-            font-size: 1.5em; 
-            font-weight: 300; 
+        #timer {
+            margin-top: 20px;
+            font-size: 1.8em;
+            font-weight: 200;
             color: var(--note-accent);
             letter-spacing: 2px;
         }
         
-        .ledger-label { 
-            text-align: left; 
-            font-size: 0.7em; 
-            letter-spacing: 3px; 
-            opacity: 0.5; 
-            margin: 25px 0 15px; 
-            text-transform: uppercase; 
+        /* Notes List */
+        .notes-label {
+            font-size: 0.65em;
+            letter-spacing: 3px;
+            opacity: 0.5;
             color: #fff;
+            margin-bottom: 12px;
+            text-transform: uppercase;
         }
         
-        #noteLog { text-align: left; }
+        #noteLog {
+            max-height: 300px;
+            overflow-y: auto;
+        }
         
         .note {
             background: rgba(255,255,255,0.95);
@@ -202,30 +179,39 @@
             border-radius: 14px;
             margin-bottom: 10px;
             border-left: 4px solid var(--note-accent);
-            animation: noteFadeIn 0.3s ease-out;
+            animation: fadeIn 0.3s ease;
         }
         
-        @keyframes noteFadeIn { 
-            from { opacity: 0; transform: translateY(10px); } 
-            to { opacity: 1; transform: translateY(0); } 
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
-        .note-time { 
-            display: block; 
-            font-size: 0.7em; 
-            font-weight: 700; 
-            color: #95a5a6; 
-            margin-bottom: 4px; 
+        .note-time {
+            display: block;
+            font-size: 0.7em;
+            font-weight: 800;
+            color: #95a5a6;
+            margin-bottom: 4px;
         }
         
-        .note-text { 
-            font-size: 0.95em; 
-            line-height: 1.5; 
-            font-weight: 500; 
+        .note-text {
+            font-size: 0.95em;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+        
+        .empty-state {
+            opacity: 0.2;
+            text-align: center;
+            padding: 30px;
+            color: #fff;
+            font-size: 0.8em;
+            letter-spacing: 2px;
         }
         
         #clearBtn {
-            margin-top: 25px;
+            margin-top: 20px;
             background: rgba(255,255,255,0.05);
             color: rgba(255,255,255,0.3);
             border: 1px solid rgba(255,255,255,0.08);
@@ -236,80 +222,46 @@
             letter-spacing: 2px;
             font-family: inherit;
             transition: all 0.2s;
+            width: 100%;
         }
         
         #clearBtn:hover {
             background: rgba(255,71,87,0.15);
             color: #ff6b6b;
-            border-color: rgba(255,71,87,0.2);
         }
         
-        .empty-state { 
-            opacity: 0.25; 
-            text-align: center; 
-            padding: 30px 0; 
-            color: #fff;
-            font-size: 0.85em;
-            letter-spacing: 2px;
-        }
-        
-        /* Footer */
-        footer {
-            padding: 30px 20px;
-            max-width: 480px;
-            margin: 0 auto;
-            width: 100%;
-        }
-        
-        .footer-section {
-            margin-bottom: 20px;
-            padding: 20px;
+        /* Footer Info */
+        .info-section {
+            margin-top: 25px;
+            padding: 18px;
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 16px;
+            border-radius: 14px;
         }
         
-        .footer-section h3 {
-            font-size: 0.9em;
-            font-weight: 500;
-            color: #fff;
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-        }
-        
-        .footer-section p {
-            font-size: 0.8em;
+        .info-section p {
+            font-size: 0.75em;
             color: var(--text-muted);
             line-height: 1.7;
             font-weight: 300;
+            text-align: center;
         }
         
-        .footer-section ul {
-            padding-left: 18px;
-            margin: 10px 0;
+        .info-section ul {
+            list-style: none;
+            margin-top: 12px;
         }
         
-        .footer-section ul li {
-            font-size: 0.8em;
+        .info-section li {
+            font-size: 0.7em;
             color: var(--text-muted);
             margin-bottom: 6px;
             font-weight: 300;
         }
         
-        .footer-privacy {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
-            padding: 15px;
-            border-radius: 12px;
-            font-size: 0.75em;
-            color: var(--text-muted);
-            text-align: center;
-            font-weight: 300;
-        }
-        
         .footer-home {
             text-align: center;
-            margin-top: 15px;
+            margin-top: 20px;
         }
         
         .footer-home a {
@@ -317,7 +269,6 @@
             text-decoration: none;
             font-size: 0.8em;
             letter-spacing: 1px;
-            transition: color 0.2s;
         }
         
         .footer-home a:hover { color: var(--accent); }
@@ -325,10 +276,9 @@
         /* Mobile */
         @media (max-width: 600px) {
             header { padding: 15px 20px; }
-            .logo { font-size: 0.9em; letter-spacing: 4px; }
-            .note-app { padding: 30px 20px; }
-            .main-btn-area { width: 170px; height: 170px; }
-            #recordBtn { width: 100px; height: 100px; }
+            main { padding: 15px 20px 30px; }
+            .note-area { padding: 30px 20px; }
+            #recordBtn { width: 120px; height: 120px; }
         }
     </style>
 </head>
@@ -339,45 +289,35 @@
     </header>
 
     <main>
-        <div class="note-app">
-            <header>
+        <div class="note-area">
+            <div class="note-header">
                 <h1>SOLA</h1>
                 <p>RAPID NOTEBOOK</p>
-            </header>
+            </div>
             
-            <div class="main-btn-area">
+            <div class="record-container">
                 <button id="recordBtn">START</button>
                 <div id="timer">READY</div>
             </div>
             
-            <div class="ledger-label">Recent Archives</div>
+            <div class="notes-label">Recent Archives</div>
             <div id="noteLog"></div>
             <button id="clearBtn">清除記錄</button>
         </div>
-    </main>
-
-    <footer>
-        <div class="footer-section">
-            <h3>關於 Sola 記事本</h3>
-            <p>生活中的靈感與瑣事都值得被即時捕捉。</p>
-        </div>
         
-        <div class="footer-section">
+        <div class="info-section">
+            <p>生活中的靈感與瑣事都值得被即時捕捉。支援廣東話錄音，資料僅存於本地瀏覽器。</p>
             <ul>
-                <li>⚡ 極速記錄：5 秒內完成錄音轉文字</li>
-                <li>🎤 即說即記：一鍵開啟錄音</li>
-                <li>📱 隨手可用：支援加入主畫面</li>
+                <li>⚡ 5 秒極速錄音轉文字</li>
+                <li>📱 支援加入主畫面即用</li>
+                <li>🔒 隱私保護，資料不經伺服器</li>
             </ul>
-        </div>
-
-        <div class="footer-privacy">
-            🔒 隱私保護：資料僅存於本地瀏覽器
         </div>
         
         <div class="footer-home">
-            <a href="index.html">← 返回首頁</a>
+            <a href="index.html">← 返回目錄</a>
         </div>
-    </footer>
+    </main>
 
     <script>
         const noteBtn = document.getElementById('recordBtn');
@@ -385,9 +325,9 @@
         const noteTimer = document.getElementById('timer');
         const noteLog = document.getElementById('noteLog');
         
+        // Load notes from localStorage
         let notes = JSON.parse(localStorage.getItem('sola_rapid_data') || '[]');
         let currentTranscript = "";
-        let isRecording = false;
         
         function renderNotes() {
             if(notes.length === 0) {
@@ -395,7 +335,7 @@
                 noteClearBtn.style.display = 'none';
                 return;
             }
-            noteClearBtn.style.display = 'inline-block';
+            noteClearBtn.style.display = 'block';
             noteLog.innerHTML = notes.map(n => `
                 <div class="note">
                     <span class="note-time">${n.time}</span>
@@ -403,15 +343,21 @@
                 </div>
             `).join('');
         }
-        renderNotes();
-
+        
         function saveNote(text) {
             if(!text || text.trim() === "") return;
+            
             const now = new Date();
             const timeStr = `${now.getFullYear()}/${now.getMonth()+1}/${now.getDate()} ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
             
+            // Add new note at the beginning
             notes.unshift({ time: timeStr, text: text });
-            if(notes.length > 50) notes.pop();
+            
+            // Keep only 50 notes (remove oldest)
+            if(notes.length > 50) {
+                notes = notes.slice(0, 50);
+            }
+            
             localStorage.setItem('sola_rapid_data', JSON.stringify(notes));
             renderNotes();
             currentTranscript = "";
@@ -427,22 +373,22 @@
             recog.continuous = false;
 
             let clock;
-            let recordingTime = 5;
+            let recordingSeconds = 5;
 
             function startRecording() {
                 try {
-                    isRecording = true;
                     noteBtn.classList.add('recording');
                     noteBtn.innerText = 'REC';
                     currentTranscript = "";
                     
-                    recordingTime = 5.0;
-                    noteTimer.innerText = recordingTime.toFixed(1) + "S";
+                    recordingSeconds = 5.0;
+                    noteTimer.innerText = recordingSeconds.toFixed(1) + "S";
                     
+                    // Countdown timer
                     clock = setInterval(() => {
-                        recordingTime -= 0.1;
-                        noteTimer.innerText = Math.max(0, recordingTime).toFixed(1) + "S";
-                        if (recordingTime <= 0) {
+                        recordingSeconds -= 0.1;
+                        noteTimer.innerText = Math.max(0, recordingSeconds).toFixed(1) + "S";
+                        if (recordingSeconds <= 0) {
                             clearInterval(clock);
                             try { recog.stop(); } catch(e) {}
                         }
@@ -450,19 +396,19 @@
                     
                     recog.start();
                 } catch(e) {
-                    console.error('Recognition start error:', e);
+                    console.error('Start error:', e);
                     stopRecording();
                 }
             }
 
             function stopRecording() {
-                isRecording = false;
                 clearInterval(clock);
                 noteBtn.classList.remove('recording');
                 noteBtn.innerText = 'START';
                 noteTimer.innerText = 'SAVED';
                 
-                if (currentTranscript.trim()) {
+                // Save the recorded text
+                if (currentTranscript && currentTranscript.trim()) {
                     saveNote(currentTranscript);
                 }
                 
@@ -471,31 +417,44 @@
                 }, 2000);
             }
 
-            recog.onresult = (event) => {
-                const transcript = event.results[0][0].transcript;
-                if (event.results[0].isFinal) {
-                    currentTranscript = transcript;
+            // When recognition returns result
+            recog.onresult = function(event) {
+                let finalTranscript = '';
+                for (let i = event.results.length - 1; i >= 0; i--) {
+                    if (event.results[i].isFinal) {
+                        finalTranscript = event.results[i][0].transcript;
+                        break;
+                    }
+                }
+                if (finalTranscript) {
+                    currentTranscript = finalTranscript;
+                } else {
+                    // Use interim results
+                    currentTranscript = event.results[0][0].transcript;
                 }
             };
 
-            recog.onend = () => {
+            // When recognition ends
+            recog.onend = function() {
                 stopRecording();
             };
 
-            recog.onerror = (event) => {
+            recog.onerror = function(event) {
                 console.error('Recognition error:', event.error);
                 stopRecording();
                 noteTimer.innerText = 'ERROR';
                 setTimeout(() => { noteTimer.innerText = 'READY'; }, 2000);
             };
 
-            noteBtn.onclick = () => {
-                if (!isRecording) {
+            // Button click
+            noteBtn.onclick = function() {
+                if (!noteBtn.classList.contains('recording')) {
                     startRecording();
                 }
             };
 
-            noteClearBtn.onclick = () => {
+            // Clear button
+            noteClearBtn.onclick = function() {
                 if(confirm('確定要清除所有記錄嗎？')) {
                     notes = [];
                     localStorage.setItem('sola_rapid_data', JSON.stringify(notes));
@@ -507,6 +466,9 @@
             noteBtn.disabled = true;
             noteBtn.style.opacity = 0.5;
         }
+        
+        // Initial render
+        renderNotes();
     </script>
 </body>
 </html>
