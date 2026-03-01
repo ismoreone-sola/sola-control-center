@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOLA RAPID NOTE</title>
+    <style>
+        :root {
+            --bg: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            --accent: #00d2ff;
+        }
+        body {
+            font-family: -apple-system, system-ui, sans-serif;
+            background: var(--bg);
+            background-attachment: fixed;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #fff;
+        }
+        .app-container { width: 100%; max-width: 450px; text-align: center; }
+        header h1 { font-weight: 200; letter-spacing: 10px; margin: 30px 0 5px; }
+        header p { font-size: 0.6em; letter-spacing: 5px; opacity: 0.5; margin-bottom: 40px; }
+        
+        .main-btn-area {
+            background: rgba(255,255,255,0.05);
+            padding: 50px 20px;
+            border-radius: 40px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 30px;
+        }
+        #recordBtn {
+            background: #fff;
+            color: #203a43;
+            border: none;
+            width: 140px;
+            height: 140px;
+            border-radius: 70px;
+            font-size: 1.2em;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.2s;
+        }
+        #recordBtn:active { transform: scale(0.95); }
+        #recordBtn.recording { background: #ff4757; color: #fff; box-shadow: 0 0 40px rgba(255,71,87,0.5); }
+        
+        #timer { margin-top: 25px; font-size: 2em; font-weight: 200; color: var(--accent); }
+        
+        .ledger-label { text-align: left; font-size: 0.7em; letter-spacing: 3px; opacity: 0.6; margin: 20px 0 15px 10px; text-transform: uppercase; }
+        #noteLog { text-align: left; }
+        .note {
+            background: rgba(255,255,255,0.95);
+            color: #2c3e50;
+            padding: 18px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            border-left: 5px solid var(--accent);
+            animation: fadeIn 0.3s ease-out;
+        }
+        .note-time { display: block; font-size: 0.65em; font-weight: 800; color: #95a5a6; margin-bottom: 6px; }
+        .note-text { font-size: 1.05em; line-height: 1.5; font-weight: 500; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Footer Style */
+        footer {
+            margin-top: 60px;
+            padding: 40px 20px;
+            width: 100%;
+            max-width: 600px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9em;
+            line-height: 1.8;
+            text-align: left;
+        }
+        .footer-content h2 {
+            font-size: 1.2em;
+            font-weight: 300;
+            color: #fff;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+        .footer-section {
+            margin-bottom: 25px;
+        }
+        .footer-section p {
+            margin: 5px 0;
+        }
+        .footer-section ul {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+        .footer-privacy {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 0.85em;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>SOLA</h1>
+            <p>RAPID NOTEBOOK</p>
+        </header>
+
+        <div class="main-btn-area">
+            <button id="recordBtn">START</button>
+            <div id="timer">READY</div>
+        </div>
+
+        <div class="ledger-label">Recent Archives</div>
+        <div id="noteLog"></div>
+
+        <button id="clearBtn" style="margin-top: 30px; background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.1); padding: 8px 15px; border-radius: 10px; cursor: pointer; font-size: 0.8em; letter-spacing: 2px;">訊息清除</button>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h2>關於 Sola 記事本</h2>
+                <p>我們相信生活中的靈感與瑣事都值得被即時捕捉。無論是待買清單、工作雜感，或是那一瞬間的突發奇想，Sola 為此而生。</p>
+            </div>
+            
+            <div class="footer-section">
+                <ul>
+                    <li><strong>極速記錄</strong>：5 秒內完成留言並轉換文字，懂你的快節奏。</li>
+                    <li><strong>即說即記</strong>：一鍵開啟錄音，無需手動按停，讓記錄像說話一樣自然。</li>
+                    <li><strong>極簡管理</strong>：始終保持新鮮，僅保留最近 50 條訊息，過期自動斷捨離。</li>
+                    <li><strong>隨手開啟</strong>：支援將網頁「加入主畫面」，像 App 一樣點擊即用，隨時捕捉靈感。</li>
+                </ul>
+            </div>
+
+            <div class="footer-section footer-privacy">
+                <strong>絕對隱私</strong>：所有資料僅儲存於您的本地瀏覽器。不經過服務器，不追蹤數據，您的私密只屬於您。
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const btn = document.getElementById('recordBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const timer = document.getElementById('timer');
+        const log = document.getElementById('noteLog');
+        
+        let notes = JSON.parse(localStorage.getItem('sola_rapid_data') || '[]');
+        let currentTranscript = "";
+        
+        function render() {
+            if(notes.length === 0) {
+                log.innerHTML = '<div style="opacity:0.2; text-align:center; padding-top:40px;">LIST IS EMPTY</div>';
+                clearBtn.style.display = 'none';
+                return;
+            }
+            clearBtn.style.display = 'inline-block';
+            log.innerHTML = notes.map(n => `
+                <div class="note">
+                    <span class="note-time">${n.time}</span>
+                    <div class="note-text">${n.text}</div>
+                </div>
+            `).join('');
+        }
+        render();
+
+        function save(text) {
+            if(!text || text.trim() === "") return;
+            const now = new Date();
+            const timeStr = `${now.getFullYear()}/${now.getMonth()+1}/${now.getDate()} ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}:${now.getSeconds().toString().padStart(2,'0')}`;
+            
+            notes.unshift({ time: timeStr, text: text });
+            if(notes.length > 50) notes.pop();
+            localStorage.setItem('sola_rapid_data', JSON.stringify(notes));
+            render();
+            currentTranscript = ""; // 清空緩衝
+        }
+
+        const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (Recognition) {
+            const recog = new Recognition();
+            recog.lang = 'zh-HK';
+            recog.interimResults = true; // 關鍵：即時獲取中間結果
+
+            let clock;
+
+            recog.onstart = () => {
+                btn.classList.add('recording');
+                btn.disabled = true;
+                btn.innerText = 'REC';
+                currentTranscript = "";
+                
+                let seconds = 5.0;
+                timer.innerText = seconds.toFixed(1) + "S";
+                
+                clock = setInterval(() => {
+                    seconds -= 0.1;
+                    timer.innerText = Math.max(0, seconds).toFixed(1) + "S";
+                    if (seconds <= 0) {
+                        clearInterval(clock);
+                        recog.stop(); // 觸發結束
+                    }
+                }, 100);
+            };
+
+            recog.onresult = (e) => {
+                // 不斷更新目前的文字緩衝區，確保手動中斷或結束時有最新內容
+                currentTranscript = e.results[0][0].transcript;
+            };
+
+            recog.onend = () => {
+                clearInterval(clock);
+                btn.classList.remove('recording');
+                btn.disabled = false;
+                btn.innerText = 'START';
+                timer.innerText = 'SAVED';
+                
+                save(currentTranscript);
+                
+                setTimeout(() => { 
+                    if(timer.innerText === 'SAVED') timer.innerText = 'READY'; 
+                }, 2000);
+            };
+
+            recog.onerror = () => {
+                clearInterval(clock);
+                btn.classList.remove('recording');
+                btn.disabled = false;
+                btn.innerText = 'START';
+                timer.innerText = 'ERROR';
+            };
+
+            btn.onclick = () => {
+                try { recog.start(); } catch(e) { recog.abort(); }
+            };
+
+            clearBtn.onclick = () => {
+                if(confirm('確定要清除所有記錄嗎？此操作無法還原。')) {
+                    notes = [];
+                    localStorage.setItem('sola_rapid_data', JSON.stringify(notes));
+                    render();
+                }
+            };
+        } else {
+            timer.innerText = "NOT SUPPORTED";
+        }
+    </script>
+</body>
+</html>
