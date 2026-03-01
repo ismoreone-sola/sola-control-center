@@ -4,82 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sola 記事本 - Sola Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #0d1117;
-            --bg-card: #161b22;
-            --border: #30363d;
-            --accent: #58a6ff;
-            --accent-hover: #79c0ff;
-            --accent-orange: #ff6b6b;
-            --accent-yellow: #ffa502;
-            --text: #c9d1d9;
-            --text-muted: #8b949e;
-            --bg-gradient: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            --bg-dark: #0a0a0f;
+            --bg-card: rgba(255,255,255,0.03);
+            --border: rgba(255,255,255,0.06);
+            --accent: #ff6b6b;
+            --accent-grad: linear-gradient(135deg, #ff6b6b 0%, #ffa502 100%);
+            --text: #e8e8e8;
+            --text-muted: #6b6b7b;
             --note-accent: #00d2ff;
+            --bg-gradient: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-family: 'Noto Sans TC', -apple-system, sans-serif;
             background: var(--bg-dark);
             color: var(--text);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            background-image: 
+                radial-gradient(ellipse at 80% 0%, rgba(0,210,255,0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 20% 100%, rgba(255,107,107,0.04) 0%, transparent 50%);
         }
         
         /* Header */
         header {
-            background: var(--bg-card);
-            border-bottom: 1px solid var(--border);
-            padding: 16px 24px;
+            padding: 20px 30px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 100;
         }
         
         .logo {
-            font-size: 1.2em;
-            font-weight: 700;
+            font-size: 1em;
+            font-weight: 300;
             color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
         }
         
-        .logo-icon {
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(135deg, var(--accent-orange), var(--accent-yellow));
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
+        .logo span {
+            font-weight: 700;
+            background: var(--accent-grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .back-btn {
-            background: rgba(255,255,255,0.1);
+            background: var(--bg-card);
             border: 1px solid var(--border);
-            color: var(--text);
-            padding: 8px 16px;
-            border-radius: 8px;
+            color: var(--text-muted);
+            padding: 10px 20px;
+            border-radius: 12px;
             cursor: pointer;
             font-size: 0.85em;
-            transition: all 0.2s;
+            font-family: inherit;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
         
         .back-btn:hover {
-            background: rgba(255,255,255,0.15);
-            transform: translateX(-3px);
+            background: rgba(255,255,255,0.06);
+            color: var(--text);
         }
         
         /* Main */
@@ -87,8 +85,9 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            padding: 30px 20px;
-            max-width: 500px;
+            align-items: center;
+            padding: 20px;
+            max-width: 480px;
             margin: 0 auto;
             width: 100%;
         }
@@ -97,9 +96,10 @@
         .note-app {
             background: var(--bg-gradient);
             background-attachment: fixed;
-            border-radius: 24px;
-            padding: 30px;
-            min-height: calc(100vh - 200px);
+            border-radius: 28px;
+            padding: 40px 30px;
+            width: 100%;
+            min-height: calc(100vh - 160px);
         }
         
         .note-app header {
@@ -112,15 +112,16 @@
         
         .note-app header h1 {
             font-weight: 200;
-            letter-spacing: 12px;
+            letter-spacing: 14px;
             margin-bottom: 5px;
             color: #fff;
             text-align: center;
+            font-size: 1.8em;
         }
         
         .note-app header p {
-            font-size: 0.6em;
-            letter-spacing: 6px;
+            font-size: 0.55em;
+            letter-spacing: 8px;
             opacity: 0.5;
             color: #fff;
             text-align: center;
@@ -129,53 +130,65 @@
         .main-btn-area {
             background: rgba(255,255,255,0.05);
             padding: 50px 20px;
-            border-radius: 40px;
+            border-radius: 50%;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.08);
             margin-bottom: 30px;
             text-align: center;
+            width: 200px;
+            height: 200px;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         
         #recordBtn {
             background: #fff;
             color: #203a43;
             border: none;
-            width: 140px;
-            height: 140px;
-            border-radius: 70px;
-            font-size: 1.2em;
-            font-weight: 800;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            font-size: 1em;
+            font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             transition: all 0.2s;
+            font-family: inherit;
+            letter-spacing: 2px;
         }
         
         #recordBtn:active { transform: scale(0.95); }
+        
         #recordBtn.recording { 
             background: #ff4757; 
             color: #fff; 
-            box-shadow: 0 0 40px rgba(255,71,87,0.5);
+            box-shadow: 0 0 50px rgba(255,71,87,0.5);
             animation: pulse 1s infinite;
         }
         
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
+            50% { transform: scale(1.03); }
         }
         
         #timer { 
-            margin-top: 25px; 
-            font-size: 2em; 
-            font-weight: 200; 
+            margin-top: 15px; 
+            font-size: 1.5em; 
+            font-weight: 300; 
             color: var(--note-accent);
+            letter-spacing: 2px;
         }
         
         .ledger-label { 
             text-align: left; 
             font-size: 0.7em; 
             letter-spacing: 3px; 
-            opacity: 0.6; 
-            margin: 20px 0 15px 10px; 
+            opacity: 0.5; 
+            margin: 25px 0 15px; 
             text-transform: uppercase; 
             color: #fff;
         }
@@ -185,10 +198,10 @@
         .note {
             background: rgba(255,255,255,0.95);
             color: #2c3e50;
-            padding: 18px;
-            border-radius: 16px;
-            margin-bottom: 12px;
-            border-left: 5px solid var(--note-accent);
+            padding: 16px;
+            border-radius: 14px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--note-accent);
             animation: noteFadeIn 0.3s ease-out;
         }
         
@@ -200,122 +213,129 @@
         .note-time { 
             display: block; 
             font-size: 0.7em; 
-            font-weight: 800; 
+            font-weight: 700; 
             color: #95a5a6; 
-            margin-bottom: 6px; 
+            margin-bottom: 4px; 
         }
         
         .note-text { 
-            font-size: 1em; 
+            font-size: 0.95em; 
             line-height: 1.5; 
             font-weight: 500; 
         }
         
         #clearBtn {
-            margin-top: 30px;
-            background: rgba(255,255,255,0.1);
-            color: rgba(255,255,255,0.4);
-            border: 1px solid rgba(255,255,255,0.1);
+            margin-top: 25px;
+            background: rgba(255,255,255,0.05);
+            color: rgba(255,255,255,0.3);
+            border: 1px solid rgba(255,255,255,0.08);
             padding: 10px 20px;
-            border-radius: 12px;
+            border-radius: 10px;
             cursor: pointer;
-            font-size: 0.8em;
+            font-size: 0.75em;
             letter-spacing: 2px;
+            font-family: inherit;
             transition: all 0.2s;
         }
         
         #clearBtn:hover {
-            background: rgba(255,71,87,0.2);
+            background: rgba(255,71,87,0.15);
             color: #ff6b6b;
-            border-color: rgba(255,71,87,0.3);
+            border-color: rgba(255,71,87,0.2);
         }
         
         .empty-state { 
-            opacity: 0.3; 
+            opacity: 0.25; 
             text-align: center; 
-            padding-top: 30px; 
+            padding: 30px 0; 
             color: #fff;
-            font-size: 0.9em;
+            font-size: 0.85em;
+            letter-spacing: 2px;
         }
         
         /* Footer */
         footer {
-            background: var(--bg-card);
-            border-top: 1px solid var(--border);
             padding: 30px 20px;
-            margin-top: auto;
-        }
-        
-        .footer-content {
-            max-width: 500px;
+            max-width: 480px;
             margin: 0 auto;
+            width: 100%;
         }
         
         .footer-section {
             margin-bottom: 20px;
+            padding: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
         }
         
         .footer-section h3 {
-            font-size: 1em;
-            font-weight: 600;
+            font-size: 0.9em;
+            font-weight: 500;
             color: #fff;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
         }
         
         .footer-section p {
-            font-size: 0.85em;
+            font-size: 0.8em;
             color: var(--text-muted);
             line-height: 1.7;
+            font-weight: 300;
         }
         
         .footer-section ul {
-            padding-left: 20px;
+            padding-left: 18px;
             margin: 10px 0;
         }
         
         .footer-section ul li {
-            font-size: 0.85em;
+            font-size: 0.8em;
             color: var(--text-muted);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
+            font-weight: 300;
         }
         
         .footer-privacy {
-            background: rgba(63, 185, 80, 0.1);
-            border: 1px solid rgba(63, 185, 80, 0.2);
+            background: rgba(63, 185, 80, 0.08);
+            border: 1px solid rgba(63, 185, 80, 0.15);
             padding: 15px;
             border-radius: 12px;
-            font-size: 0.8em;
+            font-size: 0.75em;
             color: #3fb950;
+            text-align: center;
+            font-weight: 400;
         }
         
         .footer-home {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 15px;
         }
         
         .footer-home a {
-            color: var(--accent);
+            color: var(--text-muted);
             text-decoration: none;
-            font-size: 0.9em;
+            font-size: 0.8em;
+            letter-spacing: 1px;
+            transition: color 0.2s;
         }
+        
+        .footer-home a:hover { color: var(--accent); }
         
         /* Mobile */
         @media (max-width: 600px) {
-            header { padding: 12px 16px; }
-            main { padding: 20px 16px; }
-            .note-app { padding: 20px; }
+            header { padding: 15px 20px; }
+            .logo { font-size: 0.9em; letter-spacing: 4px; }
+            .note-app { padding: 30px 20px; }
+            .main-btn-area { width: 170px; height: 170px; }
+            #recordBtn { width: 100px; height: 100px; }
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="logo">
-            <div class="logo-icon">🦞</div>
-            <span>Sola</span>
-        </div>
-        <button class="back-btn" onclick="location.href='index.html'">
-            ← 返回首頁
-        </button>
+        <div class="logo">SOLA <span>STUDIO</span></div>
+        <a href="index.html" class="back-btn">← 返回</a>
     </header>
 
     <main>
@@ -332,33 +352,30 @@
             
             <div class="ledger-label">Recent Archives</div>
             <div id="noteLog"></div>
-            <button id="clearBtn">訊息清除</button>
+            <button id="clearBtn">清除記錄</button>
         </div>
     </main>
 
     <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>關於 Sola 記事本</h3>
-                <p>我們相信生活中的靈感與瑣事都值得被即時捕捉。無論是待買清單、工作雜感，或是那一瞬間的突發奇想，Sola 為此而生。</p>
-            </div>
-            
-            <div class="footer-section">
-                <ul>
-                    <li><strong>極速記錄</strong>：5 秒內完成留言並轉換文字</li>
-                    <li><strong>即說即記</strong>：一鍵開啟錄音，無需手動按停</li>
-                    <li><strong>極簡管理</strong>：僅保留最近 50 條訊息</li>
-                    <li><strong>隨手開啟</strong>：支援將網頁加入主畫面</li>
-                </ul>
-            </div>
+        <div class="footer-section">
+            <h3>關於 Sola 記事本</h3>
+            <p>生活中的靈感與瑣事都值得被即時捕捉。</p>
+        </div>
+        
+        <div class="footer-section">
+            <ul>
+                <li>⚡ 極速記錄：5 秒內完成錄音轉文字</li>
+                <li>🎤 即說即記：一鍵開啟錄音</li>
+                <li>📱 隨手可用：支援加入主畫面</li>
+            </ul>
+        </div>
 
-            <div class="footer-privacy">
-                <strong>🔒 絕對隱私</strong>：所有資料僅儲存於您的本地瀏覽器，不經過服務器，不追蹤數據。
-            </div>
-            
-            <div class="footer-home">
-                <a href="index.html">← 返回 Sola Studio 首頁</a>
-            </div>
+        <div class="footer-privacy">
+            🔒 隱私保護：資料僅存於本地瀏覽器
+        </div>
+        
+        <div class="footer-home">
+            <a href="index.html">← 返回首頁</a>
         </div>
     </footer>
 
@@ -370,6 +387,7 @@
         
         let notes = JSON.parse(localStorage.getItem('sola_rapid_data') || '[]');
         let currentTranscript = "";
+        let isRecording = false;
         
         function renderNotes() {
             if(notes.length === 0) {
@@ -390,7 +408,7 @@
         function saveNote(text) {
             if(!text || text.trim() === "") return;
             const now = new Date();
-            const timeStr = `${now.getFullYear()}/${now.getMonth()+1}/${now.getDate()} ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}:${now.getSeconds().toString().padStart(2,'0')}`;
+            const timeStr = `${now.getFullYear()}/${now.getMonth()+1}/${now.getDate()} ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
             
             notes.unshift({ time: timeStr, text: text });
             if(notes.length > 50) notes.pop();
@@ -399,73 +417,96 @@
             currentTranscript = "";
         }
 
-        const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        if (Recognition) {
-            const recog = new Recognition();
+        // Speech Recognition
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        
+        if (SpeechRecognition) {
+            const recog = new SpeechRecognition();
             recog.lang = 'zh-HK';
             recog.interimResults = true;
+            recog.continuous = false;
 
             let clock;
+            let recordingTime = 5;
 
-            recog.onstart = () => {
-                noteBtn.classList.add('recording');
-                noteBtn.disabled = true;
-                noteBtn.innerText = 'REC';
-                currentTranscript = "";
-                
-                let seconds = 5.0;
-                noteTimer.innerText = seconds.toFixed(1) + "S";
-                
-                clock = setInterval(() => {
-                    seconds -= 0.1;
-                    noteTimer.innerText = Math.max(0, seconds).toFixed(1) + "S";
-                    if (seconds <= 0) {
-                        clearInterval(clock);
-                        recog.stop();
-                    }
-                }, 100);
-            };
+            function startRecording() {
+                try {
+                    isRecording = true;
+                    noteBtn.classList.add('recording');
+                    noteBtn.innerText = 'REC';
+                    currentTranscript = "";
+                    
+                    recordingTime = 5.0;
+                    noteTimer.innerText = recordingTime.toFixed(1) + "S";
+                    
+                    clock = setInterval(() => {
+                        recordingTime -= 0.1;
+                        noteTimer.innerText = Math.max(0, recordingTime).toFixed(1) + "S";
+                        if (recordingTime <= 0) {
+                            clearInterval(clock);
+                            try { recog.stop(); } catch(e) {}
+                        }
+                    }, 100);
+                    
+                    recog.start();
+                } catch(e) {
+                    console.error('Recognition start error:', e);
+                    stopRecording();
+                }
+            }
 
-            recog.onresult = (e) => {
-                currentTranscript = e.results[0][0].transcript;
-            };
-
-            recog.onend = () => {
+            function stopRecording() {
+                isRecording = false;
                 clearInterval(clock);
                 noteBtn.classList.remove('recording');
-                noteBtn.disabled = false;
                 noteBtn.innerText = 'START';
                 noteTimer.innerText = 'SAVED';
                 
-                saveNote(currentTranscript);
+                if (currentTranscript.trim()) {
+                    saveNote(currentTranscript);
+                }
                 
                 setTimeout(() => { 
                     if(noteTimer.innerText === 'SAVED') noteTimer.innerText = 'READY'; 
                 }, 2000);
+            }
+
+            recog.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                if (event.results[0].isFinal) {
+                    currentTranscript = transcript;
+                }
             };
 
-            recog.onerror = () => {
-                clearInterval(clock);
-                noteBtn.classList.remove('recording');
-                noteBtn.disabled = false;
-                noteBtn.innerText = 'START';
+            recog.onend = () => {
+                stopRecording();
+            };
+
+            recog.onerror = (event) => {
+                console.error('Recognition error:', event.error);
+                stopRecording();
                 noteTimer.innerText = 'ERROR';
+                setTimeout(() => { noteTimer.innerText = 'READY'; }, 2000);
             };
 
             noteBtn.onclick = () => {
-                try { recog.start(); } catch(e) { recog.abort(); }
+                if (!isRecording) {
+                    startRecording();
+                }
             };
 
             noteClearBtn.onclick = () => {
-                if(confirm('確定要清除所有記錄嗎？此操作無法還原。')) {
+                if(confirm('確定要清除所有記錄嗎？')) {
                     notes = [];
                     localStorage.setItem('sola_rapid_data', JSON.stringify(notes));
                     renderNotes();
                 }
             };
         } else {
-            noteTimer.innerText = "NOT SUPPORTED"; };
+            noteTimer.innerText = "NOT SUPPORTED";
+            noteBtn.disabled = true;
+            noteBtn.style.opacity = 0.5;
         }
     </script>
 </body>
-</html "NOT SUPPORTED>
+</html>
